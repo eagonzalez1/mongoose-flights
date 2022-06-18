@@ -18,7 +18,6 @@ function create(req, res) {
   })
 }
 
-
 function index(req, res) {
   Flight.find({})
   .then(flights => {
@@ -30,6 +29,21 @@ function index(req, res) {
   .catch(error => {
     console.log(error)
     res.redirect('/')
+  })
+}
+
+function show(req, res) {
+  console.log('test 123')
+  Flight.findById(req.params.id)
+  .then(flight => {
+    res.render('flights/show', {
+      title: "Show Flight",
+      flight: flight
+    })
+  })
+  .catch(error => {
+    console.log(error)
+    res.redirect('/flights')
   })
 }
 
@@ -50,4 +64,5 @@ export {
   create,
   index,
   deleteFlight as delete,
+  show
 }
