@@ -20,7 +20,7 @@ const flightSchema = new mongoose.Schema({
   departs: {
     type: Date, 
     default: function() {
-      return new Date().getDate() + 365
+      return new Date().getDate()
     },
   }
 }, {

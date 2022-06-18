@@ -10,36 +10,44 @@ function create(req, res) {
   Flight.create(req.body)
   .then(flight => {
     console.log(flight)
-    res.redirect(`/new`)
-    // res.redirect(`/flights`)
+    res.redirect(`/flights`)
   })
   .catch(err => {
     console.log(err)
-    res.redirect(`/new`)
-    // res.redirect(`/flights`)
+    res.redirect(`/flights`)
   })
 }
 
 
-// function index(req, res) {
-//   Movie.find({})
-//   .then(movies => {
-//     res.render('movies/index', {
-//       title: "All Movies",
-//       movies: movies //passes movies array to the HTML doc as 'movies'
-//     })
-//   })
-//   .catch(error => {
-//     console.log(error)
-//     res.redirect('/')
-//   })
-// }
+function index(req, res) {
+  Flight.find({})
+  .then(flights => {
+    res.render('flights/index', {
+      title: "All Flights",
+      flights: flights //passes flights array to the HTML doc as 'movies'
+    })
+  })
+  .catch(error => {
+    console.log(error)
+    res.redirect('/')
+  })
+}
 
-
+function deleteFlight(req, res) {
+  Flight.findByIdAndDelete(req.params.id)
+  .then(() => {
+    res.redirect("/flights")
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect("/")
+  })
+}
 
 
 export {
   newFlight as new,
   create,
-  // index,
+  index,
+  deleteFlight as delete,
 }
