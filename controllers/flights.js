@@ -1,8 +1,16 @@
 import { Flight } from "../models/flight.js"
 
 function newFlight(req, res) {
+  const newFlight = new Flight()
+  // Obtain the default date
+  const dt = newFlight.departs
+  console.log(newFlight)
+  console.log(dt)
+  // Format the date for the value attribute of the input
+  const departDate = dt.toISOString().slice(0, 16)
   res.render("flights/new", {
-    title: "Add Flight"
+    title: "Add Flight",
+    departDate
   })
 }
 
@@ -23,7 +31,7 @@ function index(req, res) {
   .then(flights => {
     res.render('flights/index', {
       title: "All Flights",
-      flights: flights //passes flights array to the HTML doc as 'movies'
+      flights: flights
     })
   })
   .catch(error => {

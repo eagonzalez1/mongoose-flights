@@ -20,7 +20,16 @@ const flightSchema = new mongoose.Schema({
   departs: {
     type: Date, 
     default: function() {
-      return new Date().getDate()
+      let mo = new Date().getMonth() + 1
+      let day = new Date().getDate()
+      let year = new Date().getFullYear() + 1
+      let formattedMonth = mo.length === 2 ? mo : `0${mo}`
+      let formattedDay = day.length === 2 ? day : `0${day}`
+      // let hour = new Date().getUTCHours()
+      // let min = new Date().getUTCMinutes()
+      let stringDate = `${year}-${formattedMonth}-${formattedDay}`
+      let finalDate = new Date(stringDate)
+      return finalDate
     },
   }
 }, {
