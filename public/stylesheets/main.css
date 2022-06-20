@@ -34,6 +34,14 @@ h1 {
   font: 55px 'Indie Flower', cursive;
 }
 
+.display-table {
+
+}
+
+.delete-button {
+  color: red;
+  font-family: 'Black Ops One', cursive;
+}
 
 @media only screen and (min-width: 768px) {
 
