@@ -21,6 +21,9 @@ router.post('/', flightsCtrl.create)
 // POST -- localhost:3000/flights/:id/tickets
 router.post('/:id/tickets', flightsCtrl.createTicket)
 
+// POST -- localhost:3000/flights/:id/tickets
+router.post('/:id/meals', flightsCtrl.addMeal);
+
 // DELETE -- localhost:3000/flights/:id
 router.delete('/:id', flightsCtrl.delete)
 
