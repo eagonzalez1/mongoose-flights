@@ -5,7 +5,7 @@ html {
 body {
   padding: 50px;
   font: 14px 'Varela', sans-serif;
-  background-image: url(../stylesheets/assets/images/day-sky.jpg);
+  background-image: url(/assets/images/day-sky.jpg);
 }
 
 body.dark {
@@ -23,6 +23,7 @@ nav {
 a {
   color: black;
   text-decoration: none;
+
 }
 
 h1 {
@@ -34,23 +35,46 @@ h1 {
   font: 55px 'Indie Flower', cursive;
 }
 
+.red {
+  color: red;
+}
+
 .display-table {
   text-align: center;
+  margin: auto;
+}
+
+td {
+  padding: 7px 10px;
 }
 
 .delete-button {
   color: red;
-  font-family: 'Black Ops One', cursive;
 }
 
+
+
 @media only screen and (min-width: 768px) {
-
-
-
-
+  
+  td {
+    padding: 7px 30px;
+  }
   
 }
 
+
+
+  #new-form {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 1.6rem;
+    margin-bottom: 2rem
+  }
+
+  #new-form * {
+    padding: 5px;
+    border-radius: 5px;
+  }
 
 
 

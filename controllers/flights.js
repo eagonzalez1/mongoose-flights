@@ -15,6 +15,7 @@ function newFlight(req, res) {
 }
 
 function create(req, res) {
+  
   Flight.create(req.body)
   .then(flight => {
     console.log(flight)
@@ -26,16 +27,21 @@ function create(req, res) {
   })
 }
 
-function index(req, res) {
+function index(req,res){
   Flight.find({})
   .then(flights => {
+    flights.forEach(flight => {
+      if(flight.departs.toISOString() < new Date().toISOString()){
+        flight.color = 'red'
+      }
+    })
     res.render('flights/index', {
-      title: "All Flights",
-      flights: flights
+    flights: flights,
+    title: 'All Flights'
     })
   })
-  .catch(error => {
-    console.log(error)
+  .catch(err => {
+    console.log(err)
     res.redirect('/')
   })
 }
@@ -80,6 +86,9 @@ function deleteFlight(req, res) {
 }
 
 function update(req, res) {
+  for (let key in req.body) {
+    if(req.body[key] === "") delete req.body[key]
+  }
   Flight.findByIdAndUpdate(req.params.id, req.body, {new: true})
   .then(flight => {
     res.redirect(`/flights/${flight._id}`)
@@ -90,6 +99,41 @@ function update(req, res) {
   })
 }
 
+function createTicket(req, res) {
+  Flight.findById(req.params.id)
+  .then(flight => {
+    flight.tickets.push(req.body)
+    flight.save()
+    .then(() => {
+      res.redirect(`/flights/${flight._id}`)
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect("/")
+  })
+}
+
+
+function deleteTicket(req, res) {
+  console.log('test 123')
+
+  Flight.findById(req.params)
+
+  .then(flight => {
+    flight.tickets.remove({_id: ticket.id})
+    flight.save()
+    .then(() => {
+      res.redirect(`/flights/${flight._id}`)
+    })
+  })
+  .catch(error => {
+    console.log(error)
+    res.redirect('/flights')
+  })
+}
+
+
 export {
   newFlight as new,
   create,
@@ -97,5 +141,14 @@ export {
   deleteFlight as delete,
   show,
   edit,
-  update
+  update,
+  createTicket,
+  deleteTicket
 }
+
+
+    // flights.forEach(flight => {
+    //   if (flight.departs.toISOString() < new Date().toISOString()) {
+    //     flight.color = 'red'
+    //   }
+    // })

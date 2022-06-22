@@ -3,36 +3,76 @@
 <%- include('../partials/nav') %>
 
 <main>
-  <h1>Selected Flight</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Airline</th>
-        <th>Deprture Airport</th>
-        <th>Flight Number</th>
-        <th>Deparure Date</th>
-      </tr>
-    </thead> 
-    <tbody>
+  <h1><%= flight.airline %> <%= flight.flightNo %></h1>
+  <section id="show-table">
+    <table>
+      <thead>
         <tr>
-          <td><%= flight.airline %></td>
-          <td><%= flight.airport %></td>
-          <td><%= flight.flightNo %></td>
-          <td><%= flight.departs %></td>
-          <td>
-            <form action="/flights/<%= flight._id %>?_method=DELETE" method="POST">
-              <button>X</button>
-            </form>
-          </td>
-          <td>
-            <form action="/flights/<%= flight._id %>/edit" method="GET">
-              <button>Edit</button>
-            </form>
-          </td>
+          <th>Airline</th>
+          <th>Airport</th>
+          <th>Flight Number</th>
+          <th>Departure Date</th>
         </tr>
-    </tbody>
-  </table>
-  <a href="/flights">Go back</a>
+      </thead> 
+      <tbody>
+          <tr>
+            <td><%= flight.airline %></td>
+            <td><%= flight.airport %></td>
+            <td><%= flight.flightNo %></td>
+            <td><%= flight.departs %></td>
+            <td>
+              <form action="/flights/<%= flight._id %>?_method=DELETE" method="POST">
+                <button  class="delete-button">X</button>
+              </form>
+            </td>
+            <td>
+              <form action="/flights/<%= flight._id %>/edit" method="GET">
+                <button>Edit</button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <form 
+      id="add-ticket-form"
+      action="/flights/<%= flight._id %>/tickets"
+      method="POST"
+    >
+      <label for="seat">Seat (A-F) & (1-9):</label>
+      <input name="seat" required pattern="[A-F][1-9]\d?">
+      <label for="price">Price($):</label>
+      <input type="number" name="price" min="0.00" max="20000.00" step="0.01">
+      <button type="submit">Add ticket</button>
+    </form>
+    <% if (flight.tickets.length) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Seat</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% flight.tickets.forEach(function(ticket) { %>
+            <tr>
+              <td><%= ticket.seat %></td>
+              <td><%= ticket.price %></td>
+              <td>
+                <form 
+                action="/flights/<%= flight._id %>/tickets/<%= ticket._id %>?_method=DELETE" method="POST">
+                  <button 
+                  class="delete-button">X</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <h3>No tickets Yet</h3>
+    <% } %>
+    <a href="/flights">↩️ Go back</a>
 </main>
 
 <%- include('../partials/footer') %>

@@ -2,6 +2,19 @@ import mongoose from "mongoose"
 
 const Schema = mongoose.Schema
 
+const ticketSchema = new Schema({
+  seat: {
+    type: String,
+    match: /[A-F][1-9]\d?/
+  },
+  price: {
+    type: Number,
+    min: 0
+  }
+}, {
+  timestamps: true
+})
+
 const flightSchema = new mongoose.Schema({
   airline: {
     type: String,
@@ -20,6 +33,7 @@ const flightSchema = new mongoose.Schema({
   departs: {
     type: Date, 
     default: function() {
+      // return new Date(new Date(),setFullYear(new Date().getFullYear() + 1))
       let mo = new Date().getMonth() + 1
       let day = new Date().getDate()
       let year = new Date().getFullYear() + 1
@@ -31,7 +45,8 @@ const flightSchema = new mongoose.Schema({
       let finalDate = new Date(stringDate)
       return finalDate
     },
-  }
+  },
+  tickets: [ticketSchema]
 }, {
   timestamps: true
 })
