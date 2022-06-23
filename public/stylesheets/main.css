@@ -8,11 +8,6 @@ body {
   background-image: url(/assets/images/day-sky.jpg);
 }
 
-body.dark {
-
-
-}
-
 nav {
   display: flex;
   flex-direction: row;
@@ -52,31 +47,28 @@ td {
   color: red;
 }
 
-
-
 @media only screen and (min-width: 768px) {
-  
   td {
     padding: 7px 30px;
   }
-  
 }
 
+#new-form {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 1.6rem;
+  margin-bottom: 2rem
+}
 
+#new-form * {
+  padding: 5px;
+  border-radius: 5px;
+}
 
-  #new-form {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-gap: 1.6rem;
-    margin-bottom: 2rem
-  }
-
-  #new-form * {
-    padding: 5px;
-    border-radius: 5px;
-  }
-
-
+#new-meal-main {
+  margin: 20px auto;
+  text-align: center;
+}
 
 /*
 font-family: 'Amatic SC', cursive; (handwirtten magazine cover)

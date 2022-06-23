@@ -4,53 +4,35 @@
 
 <main>
   <h1><%= flight.airline %> <%= flight.flightNo %></h1>
-  <section id="show-table">
-    <table>
-      <thead>
-        <tr>
-          <th>Airline</th>
-          <th>Airport</th>
-          <th>Flight Number</th>
-          <th>Departure Date</th>
-        </tr>
-      </thead> 
-      <tbody>
-          <tr>
-            <td><%= flight.airline %></td>
-            <td><%= flight.airport %></td>
-            <td><%= flight.flightNo %></td>
-            <td><%= flight.departs %></td>
-            <td>
-              <form action="/flights/<%= flight._id %>?_method=DELETE" method="POST">
-                <button  class="delete-button">X</button>
-              </form>
-            </td>
-            <td>
-              <form action="/flights/<%= flight._id %>/edit" method="GET">
-                <button>Edit</button>
-              </form>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+  <section id="basic-info-section">
+    <h3><u>Airline:</u> <%= flight.airline %></h3>
+    <h3><u>Airport:</u> <%= flight.airport %></h3>
+    <h3><u>Flight Number:</u> <%= flight.flightNo %></h3>
+    <h3><u>Departure Date:</u></h3>
+    <p id="depart-date"><%= flight.departs %></p>
     <form 
-      id="add-ticket-form"
-      action="/flights/<%= flight._id %>/tickets"
-      method="POST"
-    >
-      <label for="seat">Seat (A-F) & (1-9):</label>
-      <input name="seat" required pattern="[A-F][1-9]\d?">
-      <label for="price">Price($):</label>
-      <input type="number" name="price" min="0.00" max="20000.00" step="0.01">
-      <button type="submit">Add ticket</button>
+      class="show-button"
+      action="/flights/<%= 
+      flight._id %>/edit" 
+      method="GET">
+      <button>Edit Flight</button>
     </form>
+    <form 
+      class="show-button"
+      action="/flights/<%= 
+      flight._id %>?_method=DELETE" 
+      method="POST">
+      <button>Delete Flight</button>
+    </form>
+    <a href="/flights">↩️ Go back</a>
+  </section>
+  <section id="seat-section">
     <% if (flight.tickets.length) { %>
-      <table>
+      <table id="ticket-table">
         <thead>
           <tr>
-            <th>Seat</th>
-            <th>Price</th>
+            <th><u>Seat</u></th>
+            <th><u>Price</u></th>
           </tr>
         </thead>
         <tbody>
@@ -72,7 +54,22 @@
     <% } else { %>
       <h3>No tickets Yet</h3>
     <% } %>
-
+    <form 
+      id="add-ticket-form"
+      action="/flights/<%= flight._id %>/tickets"
+      method="POST">
+      <label for="seat">Seat (A-F) & (1-9):</label>
+      <input name="seat" required pattern="[A-F][1-9]\d?"><br>
+      <label for="price">Price($):</label>
+      <input type="number" name="price" min="0.00" max="20000.00" step="0.01"><br>
+      <button type="submit">Add ticket</button>
+    </form>
+  </section>
+  <section id="meal-section">
+    <div><u>Meals:</u></div>
+      <% flight.meal.forEach(meal => { %>
+        <p class="meal-paragraph"><%= meal.name %></p>
+      <% }) %>
     <form id="add-per-to-meal" action="/flights/<%= flight._id %>/meals" method="POST">
       <select name="mealId">
         <% meals.forEach(meal => { %>
@@ -81,15 +78,9 @@
       </select>
       <button type="submit">Add Meal</button>
     </form>
-  
-    <div>Meals:</div>
-    <ul>
-      <% flight.meal.forEach(meal => { %>
-        <li><%= meal.name %></li>
-      <% }) %>
-    </ul>
 
-    <a href="/flights">↩️ Go back</a>
+  </section>
+
 </main>
 
 <%- include('../partials/footer') %>

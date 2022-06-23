@@ -1,20 +1,41 @@
-/* main {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-gap: 1.6rem;
-  margin-bottom: 2rem
+@media only screen and (min-width: 768px) {
+  main {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+
+  h1 {
+    grid-column: span 2;
+  }
+
+  #basic-info-section {
+    grid-column: span 2;
+  }
 }
 
-h1 {
-  grid-column: span 2;
+#basic-info-section {
+  margin: 20px auto 60px auto;
+  text-align: center;
 }
 
-#show-table {
-  grid-column: span 2;
-  margin-bottom: 25px;
+.show-button {
+  margin: 10px;
 }
 
-#add-ticket-form {
-  grid-column: span 2;
-  margin-bottom: 25px;
-} */
+#seat-section {
+  margin: 20px auto 60px auto;
+  text-align: center;
+}
+
+#ticket-table {
+  margin: 5px auto;
+}
+
+#meal-section {
+  margin: 20px auto 60px auto;
+  text-align: center;
+}
+
+.meal-paragraph {
+text-align: center;
+}
